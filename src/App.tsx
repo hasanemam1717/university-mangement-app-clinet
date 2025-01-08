@@ -1,8 +1,10 @@
+import MainLayout from "./components/layouts/MainLayout";
+
 function App() {
   return (
     <>
       <div>
-        <h1>Ph university management app</h1>
+        <MainLayout></MainLayout>
       </div>
     </>
   );
