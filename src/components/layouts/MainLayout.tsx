@@ -1,32 +1,33 @@
 import { Layout, Menu, MenuProps } from "antd";
 const { Header, Content, Footer, Sider } = Layout;
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { createElement } from "react";
+// import {
+//   UploadOutlined,
+//   UserOutlined,
+//   VideoCameraOutlined,
+// } from "@ant-design/icons";
+// import { createElement } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 
 const items: MenuProps["items"] = [
   {
-    key: "1",
-    label: "Dashboard",
+    key: "dashboard",
+    label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
   },
   {
-    key: "2",
-    label: "Profile",
-  },
-  {
-    key: "3",
+    key: "User Management",
     label: "User Management",
     children: [
       {
-        key: "31",
-        label: "Create Admin",
+        key: "create admin",
+        label: <NavLink to={"/admin/create-admin"}>Create Admin</NavLink>,
       },
       {
-        key: "32",
-        label: "Create Student",
+        key: "create student",
+        label: <NavLink to={"/admin/create-student"}>Create Student</NavLink>,
+      },
+      {
+        key: "create faculty",
+        label: <NavLink to={"/admin/create-faculty"}>Create Faculty</NavLink>,
       },
     ],
   },
@@ -49,13 +50,13 @@ const MainLayout = () => {
           <div
             style={{
               color: "white",
-              fontWeight: "bold",
+              textAlign: "center",
               height: "4rem",
               display: "flex",
-              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            University Management
+            <h1>University Management</h1>
           </div>
           <Menu
             theme="dark"
@@ -73,7 +74,7 @@ const MainLayout = () => {
                 minHeight: 360,
               }}
             >
-              The main content
+              <Outlet></Outlet>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
