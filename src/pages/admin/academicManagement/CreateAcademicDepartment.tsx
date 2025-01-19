@@ -8,9 +8,9 @@ import { useAddAcademicDepartmentMutation } from "../../../redux/fetures/admin/a
 
 const CreateAcademicDepartment = () => {
   const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
-  const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // dispatch()
-    console.log(data);
+    // console.log(data);
     const toastId = toast.loading("Creating...");
     try {
       const res = (await addAcademicDepartment(data)) as TResponse<any>;

@@ -5,7 +5,7 @@ export type TSidebarItem = {
     key: string;
     label: ReactNode;
     children?: TSidebarItem[];
-};
+} | undefined;
 
 export type TRoute = {
     path: string;
@@ -17,4 +17,4 @@ export type TUserPath = {
     path: string,
     element: ReactNode,
     children: TUserPath[]
-}
+} 

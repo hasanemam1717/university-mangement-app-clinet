@@ -90,7 +90,7 @@ const academicManagementApi = baseApi.injectEndpoints({
                 }
 
                 return {
-                    url: '/academic-faculties',
+                    url: '/academic-departments',
                     method: 'GET',
                     params: params,
                 };
