@@ -1,2 +1,5 @@
 export * from './sidebarTypes'
 export * from './global'
+export * from './academicManagement.type'
+export * from './courseManagement.type'
+export * from './userManagementTypes'

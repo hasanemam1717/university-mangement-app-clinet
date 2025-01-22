@@ -3,12 +3,12 @@ import UmForm from "../../../components/from/UmForm";
 import UmInput from "../../../components/from/UmInput";
 import { useAppDispatch } from "../../../redux/hooks";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useAddAcademicFacultyMutation } from "../../../redux/fetures/admin/academicManagement.api";
 import { toast } from "sonner";
 import { TResponse } from "../../../types";
+import { useAddAcademicSemesterMutation } from "../../../redux/fetures/admin/academicManagement.api";
 
 const CreateAcademicFaculty = () => {
-  const [addAcademicFaculty] = useAddAcademicFacultyMutation();
+  const [addAcademicFaculty] = useAddAcademicSemesterMutation();
   const dispatch = useAppDispatch();
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     // dispatch()

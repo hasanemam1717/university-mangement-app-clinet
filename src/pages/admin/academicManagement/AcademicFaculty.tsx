@@ -1,6 +1,6 @@
 import { Button, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllFacultyQuery } from "../../../redux/fetures/admin/academicManagement.api";
 import { TAcademicSemester } from "../../../types/academicManagement.type";
+import { useGetAllFacultiesQuery } from "../../../redux/fetures/admin/userManagement.api";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -11,7 +11,7 @@ const AcademicFaculty = () => {
     data: name,
     isLoading,
     isFetching,
-  } = useGetAllFacultyQuery(undefined);
+  } = useGetAllFacultiesQuery(undefined);
   console.log(name);
 
   const tableData = name?.data?.map(({ _id, name }) => ({

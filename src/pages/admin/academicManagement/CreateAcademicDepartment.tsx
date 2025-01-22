@@ -4,10 +4,10 @@ import UmInput from "../../../components/from/UmInput";
 import { toast } from "sonner";
 import { TResponse } from "../../../types";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { useAddAcademicDepartmentMutation } from "../../../redux/fetures/admin/academicManagement.api";
+import { useAddAcademicSemesterMutation } from "../../../redux/fetures/admin/academicManagement.api";
 
 const CreateAcademicDepartment = () => {
-  const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
+  const [addAcademicDepartment] = useAddAcademicSemesterMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // dispatch()
     // console.log(data);

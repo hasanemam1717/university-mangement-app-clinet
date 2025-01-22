@@ -1,15 +1,34 @@
 import { Form, Select } from "antd";
-import { Controller } from "react-hook-form";
+import { useEffect } from "react";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 
-type TUmSelectProps = {
+type TPHSelectProps = {
   label: string;
   name: string;
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
   disabled?: boolean;
-  mode?: string | undefined;
+  mode?: "multiple" | undefined;
+  onValueChange: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const UmSelect = ({ label, name, options, disabled, mode }: TUmSelectProps) => {
+const UmSelectWithWatch = ({
+  label,
+  name,
+  options,
+  disabled,
+  mode,
+  onValueChange,
+}: TPHSelectProps) => {
+  const method = useFormContext();
+  const inputValue = useWatch({
+    control: method.control,
+    name,
+  });
+
+  useEffect(() => {
+    onValueChange(inputValue);
+  }, [inputValue]);
+
   return (
     <Controller
       name={name}
@@ -30,4 +49,4 @@ const UmSelect = ({ label, name, options, disabled, mode }: TUmSelectProps) => {
   );
 };
 
-export default UmSelect;
+export default UmSelectWithWatch;

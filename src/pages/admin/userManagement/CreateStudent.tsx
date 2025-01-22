@@ -1,16 +1,15 @@
 import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
-import UmForm from "../../../components/from/UmForm";
-import UmInput from "../../../components/from/UmInput";
 import { Button, Col, Divider, Form, Input, Row } from "antd";
-import UmSelect from "../../../components/from/UmSelect";
-import { bloodGroupOptions, genderOptions } from "../../../constant/global";
-import UmDatePicker from "../../../components/from/UmDatePicker";
+import { useAddStudentMutation } from "../../../redux/fetures/admin/userManagement.api";
 import {
-  useGetAllDepartmentQuery,
+  useGetAcademicDepartmentsQuery,
   useGetAllSemestersQuery,
 } from "../../../redux/fetures/admin/academicManagement.api";
-import { useAddStudentMutation } from "../../../redux/fetures/admin/userManagement.api";
-import FormItem from "antd/es/form/FormItem";
+import { bloodGroupOptions, genderOptions } from "../../../constant/global";
+import UmForm from "../../../components/from/UmForm";
+import UmInput from "../../../components/from/UmInput";
+import UmSelect from "../../../components/from/UmSelect";
+import UmDatePicker from "../../../components/from/UmDatePicker";
 
 const studentDummyData = {
   password: "student123",
@@ -22,12 +21,14 @@ const studentDummyData = {
     },
     gender: "male",
     dateOfBirth: "1990-01-01",
-    email: "student2@gmail.com",
+    bloogGroup: "A+",
+
+    email: "student3@gmail.com",
     contactNo: "1235678",
     emergencyContactNo: "987-654-3210",
-    bloogGroup: "A+",
     presentAddress: "123 Main St, Cityville",
     permanentAddress: "456 Oak St, Townsville",
+
     guardian: {
       fatherName: "James Doe",
       fatherOccupation: "Engineer",
@@ -36,31 +37,36 @@ const studentDummyData = {
       motherOccupation: "Teacher",
       motherContactNo: "444-555-6666",
     },
+
     localGuardian: {
       name: "Alice Johnson",
       occupation: "Doctor",
       contactNo: "777-888-9999",
       address: "789 Pine St, Villageton",
     },
-    admissionSemester: "65b0104110b74fcbd7a25d92",
-    academicDepartment: "65b00fb010b74fcbd7a25d8e",
+
+    admissionSemester: "65bb60ebf71fdd1add63b1c0",
+    academicDepartment: "65b4acae3dc8d4f3ad83e416",
   },
 };
-// student default value only use for test
 
+//! This is only for development
+//! Should be removed
 const studentDefaultValues = {
   name: {
-    firstName: "Hasan Emam",
+    firstName: "I am ",
     middleName: "Student",
     lastName: "Number 1",
   },
   gender: "male",
-  email: "student2@gmail.com",
+
+  bloogGroup: "A+",
+
   contactNo: "1235678",
   emergencyContactNo: "987-654-3210",
-  bloogGroup: "A+",
   presentAddress: "123 Main St, Cityville",
   permanentAddress: "456 Oak St, Townsville",
+
   guardian: {
     fatherName: "James Doe",
     fatherOccupation: "Engineer",
@@ -69,50 +75,57 @@ const studentDefaultValues = {
     motherOccupation: "Teacher",
     motherContactNo: "444-555-6666",
   },
+
   localGuardian: {
     name: "Alice Johnson",
     occupation: "Doctor",
     contactNo: "777-888-9999",
     address: "789 Pine St, Villageton",
   },
-  // admissionSemester: "",
-  // academicDepartment: "65b00fb010b74fcbd7a25d8e",
+
+  admissionSemester: "65bb60ebf71fdd1add63b1c0",
+  academicDepartment: "65b4acae3dc8d4f3ad83e416",
 };
 
 const CreateStudent = () => {
   const [addStudent, { data, error }] = useAddStudentMutation();
-  console.log("Data from addStudent", { data });
-  console.log("error from addStudent", { error });
+
+  console.log({ data, error });
 
   const { data: sData, isLoading: sIsLoading } =
     useGetAllSemestersQuery(undefined);
-  const { data: dData, isLoading: dIsLoading } = useGetAllDepartmentQuery(
-    undefined,
-    { skip: sIsLoading }
-  );
+
+  const { data: dData, isLoading: dIsLoading } =
+    useGetAcademicDepartmentsQuery(undefined);
+
   const semesterOptions = sData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
   }));
+
   const departmentOptions = dData?.data?.map((item) => ({
     value: item._id,
-    label: `${item.name}`,
+    label: item.name,
   }));
-  // console.log(sData);
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const studentData = {
       password: "student123",
       student: data,
     };
 
-    // console.log(data);
     const formData = new FormData();
+
     formData.append("data", JSON.stringify(studentData));
     formData.append("file", data.image);
+
     addStudent(formData);
-    // This is for just development
-    // console.log(Object.fromEntries(formData));
+
+    //! This is for development
+    //! Just for checking
+    console.log(Object.fromEntries(formData));
   };
+
   return (
     <Row justify="center">
       <Col span={24}>
