@@ -1,42 +1,57 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import About from "../pages/About";
-import LogIn from "../pages/LogIn";
+import Register from "../pages/Register";
 import { adminPaths } from "./admin.routes";
-import { routeGenerator } from "../utils/routersGenaretors";
 import { facultyPaths } from "./faculty.routes";
 import { studentPaths } from "./student.routes";
+import ProtectedRoute from "../components/layouts/ProtectedRoute";
+import { routeGenerator } from "../utils/routersGenaretors";
+import Login from "../pages/LogIn";
+import ChangePassword from "../pages/ChangePassword";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
-    children: [
-      {
-        path: "about",
-        element: <About></About>,
-      },
-    ],
+    element: <App />,
   },
   {
     path: "/admin",
-    element: <App></App>,
+    element: (
+      <ProtectedRoute role="admin">
+        <App />
+      </ProtectedRoute>
+    ),
     children: routeGenerator(adminPaths),
   },
   {
     path: "/faculty",
-    element: <App></App>,
+    element: (
+      <ProtectedRoute role="faculty">
+        <App />
+      </ProtectedRoute>
+    ),
     children: routeGenerator(facultyPaths),
   },
   {
     path: "/student",
-    element: <App></App>,
+    element: (
+      <ProtectedRoute role="student">
+        <App />
+      </ProtectedRoute>
+    ),
     children: routeGenerator(studentPaths),
   },
-
   {
-    path: "login",
-    element: <LogIn></LogIn>,
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

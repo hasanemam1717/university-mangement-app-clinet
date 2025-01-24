@@ -20,14 +20,14 @@ const Login = () => {
   // });
 
   const defaultValues = {
-    userId: "A-0001",
-    password: "admin123",
+    userId: "2026020001",
+    password: "student123",
   };
 
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    // console.log(data);
     const toastId = toast.loading("Logging in");
 
     try {
@@ -36,10 +36,17 @@ const Login = () => {
         password: data.password,
       };
       const res = await login(userInfo).unwrap();
+
+      console.log(res.data.needsPasswordChange);
       const user = verifyToken(res.data.accessToken) as TUser;
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       toast.success("Logged in", { id: toastId, duration: 2000 });
-      navigate(`/${user.role}/dashboard`);
+      if (res.data.needsPasswordChange) {
+        console.log("change");
+        navigate(`/change-password`);
+      } else {
+        navigate(`/${user.role}/dashboard`);
+      }
     } catch (err) {
       toast.error("Something went wrong", { id: toastId, duration: 2000 });
     }

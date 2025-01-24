@@ -13,8 +13,8 @@ export type TRoute = {
 };
 
 export type TUserPath = {
-    name: string,
-    path: string,
+    name?: string,
+    path?: string,
     element: ReactNode,
     children: TUserPath[]
 } 
